@@ -22,14 +22,14 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         layout.scrollDirection = .horizontal
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.translatesAutoresizingMaskIntoConstraints = false // Very important
-        view.backgroundColor = .blue
+        view.backgroundColor = .clear
         return view
     }()
     let mealTypeImage: UIImageView = {
         let image = UIImageView(frame: .zero)
         image.image = UIImage(named: "Group")
         image.translatesAutoresizingMaskIntoConstraints = false // Very important
-        image.backgroundColor = .green
+        image.backgroundColor = .clear
         return image
     }()
     
@@ -61,7 +61,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     
     
     let priceBGView: UIView = {
-        let view = UIView(frame: .zero)//CGRect(x: 200, y: 250, width: 50, height: 40))
+        let view = UIView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false // Very important
         view.backgroundColor = UIColor(red:0.00, green:0.48, blue:1.00, alpha:1.0)
         view.layer.cornerRadius = 16
@@ -69,11 +69,18 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     }()
     
     let priceLable: UILabel = {
-        let lable = UILabel(frame: .zero)//CGRect(x: 0, y: 0, width: 200, height: 50))
+        let lable = UILabel(frame: .zero)
         lable.translatesAutoresizingMaskIntoConstraints = false // Very important
         lable.text = "€5.95"
         lable.textColor = .white
         return lable
+    }()
+    
+    let dividerLine: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false // Very important
+        view.backgroundColor = UIColor(white: 0.4, alpha: 0.4)
+        return view
     }()
     
     required init?(coder aDecoder: NSCoder) {
@@ -92,6 +99,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         addSubview(priceBGView)
         addSubview(priceLable)
         addSubview(alergiesLable)
+        addSubview(dividerLine)
 
         // Center the cost lable using autoLayout constraint
         priceLable.centerXAnchor.constraint(equalTo: priceBGView.centerXAnchor).isActive = true
@@ -126,12 +134,13 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-8-[v1]-2-[v2]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v1": mealNameLable,"v2": servedWithMealNameLable]))
         
-
-        
         // MARK: add  constraints to  the alergies collection views:
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-8-[v6]-8-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v6": restaurantCollectionView]))
         
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[v6(50)]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v6": restaurantCollectionView]))
+        // Divider Line
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-24-[v7]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v7": dividerLine]))
+        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[v6(50)]-2-[v7(0.5)]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v6": restaurantCollectionView, "v7": dividerLine]))
         
     }
     
@@ -142,7 +151,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellID, for: indexPath) as! AlergiesCell
-        return cell //collectionView.dequeueReusableCell(withReuseIdentifier: CellID, for: indexPath)
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -154,7 +163,7 @@ class AlergiesCell: UICollectionViewCell {
     
     let alergiesImageView: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Group")
+        image.image = UIImage(named: "wheat")
         image.translatesAutoresizingMaskIntoConstraints = false // Very important
         image.contentMode = .scaleAspectFill
         image.layer.masksToBounds = true
