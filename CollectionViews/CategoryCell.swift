@@ -90,7 +90,6 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     func setupViews() {
         backgroundColor = .white
         
-        
         //MARK: add views the the root view:
         addSubview(restaurantCollectionView)
         addSubview(mealTypeImage)
@@ -135,7 +134,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-8-[v1]-2-[v2]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v1": mealNameLable,"v2": servedWithMealNameLable]))
         
         // MARK: add  constraints to  the alergies collection views:
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-8-[v6]-8-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v6": restaurantCollectionView]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-48-[v6]-8-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v6": restaurantCollectionView]))
         
         // Divider Line
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-24-[v7]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v7": dividerLine]))
@@ -144,8 +143,12 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         
     }
     
+}
+
+extension CategoryCell {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
