@@ -12,9 +12,13 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
     let cellID_Profile = "CellProfile"
     let cellID_Menu = "Cell"
     
+     var passedArray = [Services]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+         self.collectionView?.allowsSelection = false
+        navigationController?.navigationBar.prefersLargeTitles = false
+        self.collectionView?.reloadData()
         collectionView?.backgroundColor = .white
         collectionView?.register(ProfileCell.self, forCellWithReuseIdentifier: cellID_Profile)
         collectionView?.register(CategoryCell.self, forCellWithReuseIdentifier: cellID_Menu )
@@ -23,21 +27,29 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
 }
 
 extension CollectionViewController {
-    
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
+
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return (passedArray.first?.menu.count)!
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! CategoryCell
         if indexPath.item == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID_Profile, for: indexPath) as! ProfileCell
-            cell.profileImage.image = UIImage(named: "1")
-            return cell
+            let topCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID_Profile, for: indexPath) as! ProfileCell
+            
+            let logo = passedArray[indexPath.item].logo_URL
+            let urlImage = URL(string: logo)!
+            print(urlImage)
+            topCell.profileImage.kf.setImage(with: urlImage)
+            topCell.restaurantNameLable.text = passedArray[indexPath.item].title
+            topCell.restaurantFoodtypeLable.text = passedArray[indexPath.item].type
+            let info =
+            """
+            \(passedArray[indexPath.item].opening_days)
+            \(passedArray[indexPath.item].opening_hours)
+            """
+            topCell.daysANDhoursLable.text = info
+            return topCell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID_Menu, for: indexPath) as! CategoryCell
             return cell
