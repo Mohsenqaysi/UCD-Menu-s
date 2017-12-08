@@ -11,10 +11,49 @@ import UIKit
 class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     
     let CellID = "CellID"
+    var Json_URL =  "http://www.mocky.io/v2/5a2afeba2d0000202d91b290"
+    var alergiesIcsonArrayKeys = [String]()
+    var alergiesIcsonArray = [String: String]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        print("Json_URL: ", Json_URL)
         setupViews()
+        loadDataFromTheServer()
+    }
+    
+    func loadDataFromTheServer() {
+        alergiesIcsonArray.removeAll()
+        guard let url = URL(string: Json_URL) else {return}
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            
+            // check for errors
+            if error != nil {
+                print(String(describing: error?.localizedDescription))
+            } else {
+                // check the response
+                //                print("response: \(String(describing: response?.url))")
+                // Use the data
+                guard let data = data else { return }
+                do {
+                    let broker = try JSONDecoder().decode(Alergies.self, from: data)
+                    //                    dup(broker.)
+                    //                    self.alergiesIcsonArray = [broker]
+                    for service in broker.alergies {
+                        //                        dump(service)
+                        self.alergiesIcsonArray = service
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.restaurantCollectionView.reloadData()
+                    }
+                    //
+                } catch let jsonErr {
+                    print("Error serializing json:", jsonErr)
+                }
+            }
+            }.resume() // to fire it off
     }
     
     let restaurantCollectionView: UICollectionView = {
@@ -45,7 +84,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     let mealNameLable: UILabel = {
         let lable = UILabel(frame: .zero)
         lable.translatesAutoresizingMaskIntoConstraints = false // Very important
-        lable.text = "Chicken Fillet ala Grecque"
+        lable.text = ".."
         lable.font = .boldSystemFont(ofSize: 17)
         lable.numberOfLines = 2
         return lable
@@ -54,7 +93,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     let servedWithMealNameLable: UILabel = {
         let lable = UILabel(frame: .zero)
         lable.translatesAutoresizingMaskIntoConstraints = false // Very important
-        lable.text = "Servedwith: Oregano, Tomato, Olive, Feta Cheese"
+        lable.text = "..."
         lable.textColor = .darkGray
         lable.numberOfLines = 3
         return lable
@@ -72,7 +111,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     let priceLable: UILabel = {
         let lable = UILabel(frame: .zero)
         lable.translatesAutoresizingMaskIntoConstraints = false // Very important
-        lable.text = "€5.95"
+        lable.text = "..."
         lable.textColor = .white
         return lable
     }()
@@ -149,14 +188,25 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
 extension CategoryCell {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return alergiesIcsonArrayKeys.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellID, for: indexPath) as! AlergiesCell
-//        cell.alergiesImageView.image =  UIImage(named: "wheat")
-        return cell
+        dump(alergiesIcsonArrayKeys[indexPath.item])
+        print("-----------------------------")
+        
+        ////        print("Keys: ", alergiesIcsonArrayKeys)
+        let iconKey: String = alergiesIcsonArrayKeys[indexPath.item]
+        //        print("iconKey: ", iconKey,"\n")
+        if let icon_URL: String = alergiesIcsonArray[iconKey] {
+            print("icon_URL: \(icon_URL)")
+            let urlImage = URL(string: icon_URL)
+            print("urlImage: \(urlImage)")
+            cell.alergiesImageView.kf.setImage(with: urlImage)            
+        }
+         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

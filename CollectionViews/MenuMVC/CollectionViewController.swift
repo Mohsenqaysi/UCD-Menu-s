@@ -11,6 +11,7 @@ import UIKit
 class CollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     let cellID_Profile = "CellProfile"
     let cellID_Menu = "Cell"
+
     
      var passedArray = [Services]()
     
@@ -24,6 +25,7 @@ class CollectionViewController: UICollectionViewController, UICollectionViewDele
         collectionView?.register(CategoryCell.self, forCellWithReuseIdentifier: cellID_Menu )
         
     }
+    
 }
 
 extension CollectionViewController {
@@ -33,7 +35,6 @@ extension CollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        //        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! CategoryCell
         if indexPath.item == 0 {
             let topCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID_Profile, for: indexPath) as! ProfileCell
             
@@ -52,6 +53,13 @@ extension CollectionViewController {
             return topCell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID_Menu, for: indexPath) as! CategoryCell
+            cell.mealNameLable.text = passedArray.first?.menu[indexPath.item].name
+            cell.servedWithMealNameLable.text = passedArray.first?.menu[indexPath.item].servedwith
+            let price = String(format: "€%.2f", (passedArray.first?.menu[indexPath.item].cost)!)
+            cell.priceLable.text = price
+            cell.Json_URL =  "http://www.mocky.io/v2/5a2afeba2d0000202d91b290"
+            cell.alergiesIcsonArrayKeys = (passedArray.first?.menu[indexPath.item].alergies)!
+            
             return cell
         }
     }

@@ -8,6 +8,8 @@
 
 import Foundation
 
+let mocky_URL = "http://www.mocky.io/v2/5a2afeba2d0000202d91b290"
+
 // MARK: Cells Idenifiers
 struct Idenifiers {
     static let MainViewRootCellID = "Cell"
@@ -35,6 +37,12 @@ struct Services: Decodable {
 }
 struct Menu: Decodable {
     let name: String
+    let servedwith: String
+    let cost: Double
     let calories: Int
     let alergies:[String]
+}
+
+struct Alergies: Decodable {
+    let alergies: [[String: String]]
 }

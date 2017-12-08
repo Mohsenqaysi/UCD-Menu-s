@@ -10,7 +10,6 @@ import UIKit
 import Kingfisher
 
 private let cellID = "Cell"
-private let mocky_URL = "http://www.mocky.io/v2/5a2420622e0000510a83bf5a"
 
 class MainCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
@@ -52,8 +51,9 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
                 guard let data = data else { return }
                 do {
                     let broker = try JSONDecoder().decode(Broker.self, from: data)
+                    
                     for service in broker.services {
-//                        dump(service)
+                        //                        dump(service)
                         self.newArry.append(service)
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
@@ -147,6 +147,7 @@ extension MainCollectionViewController {
         print(urlImage)
         cell.logoImageView.kf.setImage(with: urlImage)
         cell.restaurantNameLable.text = newArry[indexPath.item].title
+       
         
         return cell
     }
@@ -161,17 +162,14 @@ extension MainCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         showControllerForSetting(indexPath)
-//        let newViewController = CollectionViewController()
-//        self.navigationController?.pushViewController(newViewController, animated: true)
+
     }
     
     func showControllerForSetting(_ index: IndexPath) {
          let layout = UICollectionViewFlowLayout()
 
         let dummySettingsViewController = CollectionViewController(collectionViewLayout: layout)
-//        dummySettingsViewController.navigationItem.backBarButtonItem?.title = newArry[index.item].title
-//        navigationController?.navigationBar.tintColor = UIColor.white
-//        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+
         dummySettingsViewController.passedArray = [newArry[index.item]]
         navigationController?.pushViewController(dummySettingsViewController, animated: true)
     }
