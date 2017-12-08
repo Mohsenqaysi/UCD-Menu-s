@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		FCA814061FDA0D8C00D864E0 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA814051FDA0D8C00D864E0 /* ProfileCell.swift */; };
 		FCACA9741FD99F27003C79C4 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCACA9731FD99F27003C79C4 /* CategoryCell.swift */; };
+		FCC51A291FDAFD3C00FB71FB /* MainCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC51A281FDAFD3C00FB71FB /* MainCollectionViewController.swift */; };
 		FCF2FB901FD8BE7C006A0C5A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF2FB8F1FD8BE7C006A0C5A /* AppDelegate.swift */; };
 		FCF2FB921FD8BE7C006A0C5A /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF2FB911FD8BE7C006A0C5A /* CollectionViewController.swift */; };
 		FCF2FB951FD8BE7C006A0C5A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCF2FB931FD8BE7C006A0C5A /* Main.storyboard */; };
@@ -19,6 +20,7 @@
 /* Begin PBXFileReference section */
 		FCA814051FDA0D8C00D864E0 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		FCACA9731FD99F27003C79C4 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		FCC51A281FDAFD3C00FB71FB /* MainCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewController.swift; sourceTree = "<group>"; };
 		FCF2FB8C1FD8BE7C006A0C5A /* CollectionViews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CollectionViews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCF2FB8F1FD8BE7C006A0C5A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FCF2FB911FD8BE7C006A0C5A /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
@@ -52,6 +54,7 @@
 		FCC51A271FDAEBC400FB71FB /* ServisesList */ = {
 			isa = PBXGroup;
 			children = (
+				FCC51A281FDAFD3C00FB71FB /* MainCollectionViewController.swift */,
 			);
 			path = ServisesList;
 			sourceTree = "<group>";
@@ -75,8 +78,8 @@
 		FCF2FB8E1FD8BE7C006A0C5A /* CollectionViews */ = {
 			isa = PBXGroup;
 			children = (
-				FCC51A271FDAEBC400FB71FB /* ServisesList */,
 				FCF2FB8F1FD8BE7C006A0C5A /* AppDelegate.swift */,
+				FCC51A271FDAEBC400FB71FB /* ServisesList */,
 				FCC51A261FDAEB9700FB71FB /* MenuMVC */,
 				FCF2FB931FD8BE7C006A0C5A /* Main.storyboard */,
 				FCF2FB961FD8BE7C006A0C5A /* Assets.xcassets */,
@@ -159,6 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FCF2FB921FD8BE7C006A0C5A /* CollectionViewController.swift in Sources */,
+				FCC51A291FDAFD3C00FB71FB /* MainCollectionViewController.swift in Sources */,
 				FCA814061FDA0D8C00D864E0 /* ProfileCell.swift in Sources */,
 				FCF2FB901FD8BE7C006A0C5A /* AppDelegate.swift in Sources */,
 				FCACA9741FD99F27003C79C4 /* CategoryCell.swift in Sources */,
