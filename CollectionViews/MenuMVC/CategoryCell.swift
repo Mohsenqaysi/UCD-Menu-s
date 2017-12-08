@@ -25,6 +25,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         view.backgroundColor = .clear
         return view
     }()
+    
     let mealTypeImage: UIImageView = {
         let image = UIImageView(frame: .zero)
         image.image = UIImage(named: "Group")
@@ -34,7 +35,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     }()
     
     let alergiesLable: UILabel = {
-        let lable = UILabel(frame: .zero)//CGRect(x: 0, y: 0, width: 200, height: 50))
+        let lable = UILabel(frame: .zero)
         lable.translatesAutoresizingMaskIntoConstraints = false // Very important
         lable.text = "Allergies:"
         lable.font = .boldSystemFont(ofSize: 24)
@@ -42,7 +43,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     }()
     
     let mealNameLable: UILabel = {
-        let lable = UILabel(frame: .zero)//CGRect(x: 0, y: 0, width: 200, height: 50))
+        let lable = UILabel(frame: .zero)
         lable.translatesAutoresizingMaskIntoConstraints = false // Very important
         lable.text = "Chicken Fillet ala Grecque"
         lable.font = .boldSystemFont(ofSize: 17)
@@ -51,7 +52,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     }()
     
     let servedWithMealNameLable: UILabel = {
-        let lable = UILabel(frame: .zero)//CGRect(x: 0, y: 0, width: 200, height: 50))
+        let lable = UILabel(frame: .zero)
         lable.translatesAutoresizingMaskIntoConstraints = false // Very important
         lable.text = "Servedwith: Oregano, Tomato, Olive, Feta Cheese"
         lable.textColor = .darkGray

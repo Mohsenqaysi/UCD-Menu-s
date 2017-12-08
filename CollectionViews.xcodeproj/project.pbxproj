@@ -39,6 +39,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FCC51A261FDAEB9700FB71FB /* MenuMVC */ = {
+			isa = PBXGroup;
+			children = (
+				FCF2FB911FD8BE7C006A0C5A /* CollectionViewController.swift */,
+				FCA814051FDA0D8C00D864E0 /* ProfileCell.swift */,
+				FCACA9731FD99F27003C79C4 /* CategoryCell.swift */,
+			);
+			path = MenuMVC;
+			sourceTree = "<group>";
+		};
+		FCC51A271FDAEBC400FB71FB /* ServisesList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ServisesList;
+			sourceTree = "<group>";
+		};
 		FCF2FB831FD8BE7C006A0C5A = {
 			isa = PBXGroup;
 			children = (
@@ -58,14 +75,13 @@
 		FCF2FB8E1FD8BE7C006A0C5A /* CollectionViews */ = {
 			isa = PBXGroup;
 			children = (
+				FCC51A271FDAEBC400FB71FB /* ServisesList */,
 				FCF2FB8F1FD8BE7C006A0C5A /* AppDelegate.swift */,
-				FCF2FB911FD8BE7C006A0C5A /* CollectionViewController.swift */,
-				FCACA9731FD99F27003C79C4 /* CategoryCell.swift */,
+				FCC51A261FDAEB9700FB71FB /* MenuMVC */,
 				FCF2FB931FD8BE7C006A0C5A /* Main.storyboard */,
 				FCF2FB961FD8BE7C006A0C5A /* Assets.xcassets */,
 				FCF2FB981FD8BE7C006A0C5A /* LaunchScreen.storyboard */,
 				FCF2FB9B1FD8BE7C006A0C5A /* Info.plist */,
-				FCA814051FDA0D8C00D864E0 /* ProfileCell.swift */,
 			);
 			path = CollectionViews;
 			sourceTree = "<group>";
