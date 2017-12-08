@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FC0031A81FDB18EC0038340F /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0031A61FDB18EB0038340F /* DataModel.swift */; };
+		FC0031A91FDB18EC0038340F /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0031A71FDB18EB0038340F /* extensions.swift */; };
 		FCA814061FDA0D8C00D864E0 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA814051FDA0D8C00D864E0 /* ProfileCell.swift */; };
 		FCACA9741FD99F27003C79C4 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCACA9731FD99F27003C79C4 /* CategoryCell.swift */; };
 		FCC51A291FDAFD3C00FB71FB /* MainCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCC51A281FDAFD3C00FB71FB /* MainCollectionViewController.swift */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FC0031A61FDB18EB0038340F /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		FC0031A71FDB18EB0038340F /* extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		FCA814051FDA0D8C00D864E0 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		FCACA9731FD99F27003C79C4 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		FCC51A281FDAFD3C00FB71FB /* MainCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewController.swift; sourceTree = "<group>"; };
@@ -41,6 +45,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FC0031AA1FDB18F70038340F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FC0031A61FDB18EB0038340F /* DataModel.swift */,
+				FC0031A71FDB18EB0038340F /* extensions.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		FCC51A261FDAEB9700FB71FB /* MenuMVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -82,6 +95,7 @@
 				FCC51A271FDAEBC400FB71FB /* ServisesList */,
 				FCC51A261FDAEB9700FB71FB /* MenuMVC */,
 				FCF2FB931FD8BE7C006A0C5A /* Main.storyboard */,
+				FC0031AA1FDB18F70038340F /* Model */,
 				FCF2FB961FD8BE7C006A0C5A /* Assets.xcassets */,
 				FCF2FB981FD8BE7C006A0C5A /* LaunchScreen.storyboard */,
 				FCF2FB9B1FD8BE7C006A0C5A /* Info.plist */,
@@ -164,8 +178,10 @@
 				FCF2FB921FD8BE7C006A0C5A /* CollectionViewController.swift in Sources */,
 				FCC51A291FDAFD3C00FB71FB /* MainCollectionViewController.swift in Sources */,
 				FCA814061FDA0D8C00D864E0 /* ProfileCell.swift in Sources */,
+				FC0031A91FDB18EC0038340F /* extensions.swift in Sources */,
 				FCF2FB901FD8BE7C006A0C5A /* AppDelegate.swift in Sources */,
 				FCACA9741FD99F27003C79C4 /* CategoryCell.swift in Sources */,
+				FC0031A81FDB18EC0038340F /* DataModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
