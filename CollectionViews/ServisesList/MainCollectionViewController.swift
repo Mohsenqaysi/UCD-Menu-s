@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 private let cellID = "Cell"
 private let mocky_URL = "http://www.mocky.io/v2/5a2420622e0000510a83bf5a"
@@ -52,7 +53,7 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
                 do {
                     let broker = try JSONDecoder().decode(Broker.self, from: data)
                     for service in broker.services {
-                        dump(service)
+//                        dump(service)
                         self.newArry.append(service)
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
@@ -130,11 +131,23 @@ extension MainCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 3
+        return newArry.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! ResturantLogoCell
+
+        // MARK: the data loding is very fast ... add delay to make the UI look nicer
+        UIView.animate(withDuration: 0.5, animations: {
+            self.loader.stopAnimating()
+        }, completion: nil)
+        
+        let logo = newArry[indexPath.item].logo_URL
+        let urlImage = URL(string: logo)!
+        print(urlImage)
+        cell.logoImageView.kf.setImage(with: urlImage)
+        cell.restaurantNameLable.text = newArry[indexPath.item].title
+        
         return cell
     }
     
