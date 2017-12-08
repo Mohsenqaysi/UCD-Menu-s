@@ -36,8 +36,8 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     let alergiesLable: UILabel = {
         let lable = UILabel(frame: .zero)//CGRect(x: 0, y: 0, width: 200, height: 50))
         lable.translatesAutoresizingMaskIntoConstraints = false // Very important
-        lable.text = "Alergies:"
-        lable.font = .boldSystemFont(ofSize: 20)
+        lable.text = "Allergies:"
+        lable.font = .boldSystemFont(ofSize: 24)
         return lable
     }()
     
@@ -99,11 +99,11 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         addSubview(priceLable)
         addSubview(alergiesLable)
         addSubview(dividerLine)
-
+        
         // Center the cost lable using autoLayout constraint
         priceLable.centerXAnchor.constraint(equalTo: priceBGView.centerXAnchor).isActive = true
         priceLable.centerYAnchor.constraint(equalTo: priceBGView.centerYAnchor).isActive = true
-
+        
         restaurantCollectionView.dataSource = self
         restaurantCollectionView.delegate = self
         
@@ -121,7 +121,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-8-[v0(50)]-16-[v3(73)]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": mealTypeImage,"v3": priceBGView]))
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[v2]-2-[v3(30)]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v2": servedWithMealNameLable,"v3": priceBGView]))
-         // Cost BG view END
+        // Cost BG view END
         
         // AlergiesLable
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-8-[v4]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v4": alergiesLable]))
@@ -154,6 +154,7 @@ extension CategoryCell {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellID, for: indexPath) as! AlergiesCell
+//        cell.alergiesImageView.image =  UIImage(named: "wheat")
         return cell
     }
     
