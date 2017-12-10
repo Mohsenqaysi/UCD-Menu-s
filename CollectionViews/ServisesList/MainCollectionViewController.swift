@@ -21,7 +21,9 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
 
         collectionView?.backgroundColor = .white
         navigationController?.navigationBar.prefersLargeTitles = true
-        collectionView?.contentInset = UIEdgeInsetsMake(8, 0, 0, 0)
+
+
+        collectionView?.contentInset = UIEdgeInsetsMake(16, 0, 0, 0)
         
         setDate()
         setActivityindeicator()
@@ -72,7 +74,7 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
     
     let loderStatusLabel: UILabel = {
         let lb = UILabel()
-        lb.text = "Loading..."
+        lb.text = "LOADING"
         lb.textAlignment = .center
         lb.textColor = .white
         lb.font = UIFont.boldSystemFont(ofSize: 18)
@@ -115,7 +117,7 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
         
         _ = loader.anchor(top: nil, left: nil, bottom: nil, right: nil, topConstant: h/4, leftConstant: w/4, bottomConstant: h/4, rightConstant: w/4, widthConstant: 150, heightConstant: 100)
         
-        _ = loderStatusLabel.anchor(top: nil, left: loader.leftAnchor, bottom: loader.bottomAnchor, right: loader.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 5, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        _ = loderStatusLabel.anchor(top: nil, left: loader.leftAnchor, bottom: loader.bottomAnchor, right: loader.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 4, rightConstant: 0, widthConstant: 0, heightConstant: 0)
     }
 }
 
@@ -148,7 +150,6 @@ extension MainCollectionViewController {
         cell.logoImageView.kf.setImage(with: urlImage)
         cell.restaurantNameLable.text = newArry[indexPath.item].title
        
-        
         return cell
     }
     
@@ -161,17 +162,15 @@ extension MainCollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        showControllerForSetting(indexPath)
-
+        showControllerForMenu(indexPath)
     }
     
-    func showControllerForSetting(_ index: IndexPath) {
+    func showControllerForMenu(_ index: IndexPath) {
          let layout = UICollectionViewFlowLayout()
 
-        let dummySettingsViewController = CollectionViewController(collectionViewLayout: layout)
-
-        dummySettingsViewController.passedArray = [newArry[index.item]]
-        navigationController?.pushViewController(dummySettingsViewController, animated: true)
+        let menuViewController = CollectionViewController(collectionViewLayout: layout)
+        menuViewController.passedArray = [newArry[index.item]]
+        navigationController?.pushViewController(menuViewController, animated: true)
     }
 }
 

@@ -11,20 +11,18 @@ import UIKit
 class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     
     let CellID = "CellID"
-    var Json_URL =  "http://www.mocky.io/v2/5a2afeba2d0000202d91b290"
     var alergiesIcsonArrayKeys = [String]()
     var alergiesIcsonArray = [String: String]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        print("Json_URL: ", Json_URL)
         setupViews()
         loadDataFromTheServer()
     }
     
     func loadDataFromTheServer() {
         alergiesIcsonArray.removeAll()
-        guard let url = URL(string: Json_URL) else {return}
+        guard let url = URL(string: mocky_URL) else {return}
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             
@@ -38,8 +36,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
                 guard let data = data else { return }
                 do {
                     let broker = try JSONDecoder().decode(Alergies.self, from: data)
-                    //                    dup(broker.)
-                    //                    self.alergiesIcsonArray = [broker]
+
                     for service in broker.alergies {
                         //                        dump(service)
                         self.alergiesIcsonArray = service
@@ -95,7 +92,8 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         lable.translatesAutoresizingMaskIntoConstraints = false // Very important
         lable.text = "..."
         lable.textColor = .darkGray
-        lable.numberOfLines = 3
+        lable.numberOfLines = 4
+        lable.adjustsFontSizeToFitWidth = true
         return lable
     }()
     
@@ -116,6 +114,17 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         return lable
     }()
     
+    let caloriesLable: UILabel = {
+        let lable = UILabel(frame: .zero)
+        lable.translatesAutoresizingMaskIntoConstraints = false // Very important
+        lable.text = "..."
+        lable.font = .boldSystemFont(ofSize: 17)
+        lable.numberOfLines = 2
+        lable.adjustsFontSizeToFitWidth = true
+        lable.textColor = .darkGray
+        return lable
+    }()
+    
     let dividerLine: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false // Very important
@@ -131,14 +140,15 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         backgroundColor = .white
         
         //MARK: add views the the root view:
-        addSubview(restaurantCollectionView)
-        addSubview(mealTypeImage)
-        addSubview(mealNameLable)
-        addSubview(servedWithMealNameLable)
-        addSubview(priceBGView)
-        addSubview(priceLable)
-        addSubview(alergiesLable)
-        addSubview(dividerLine)
+        addSubview(restaurantCollectionView) // v6
+        addSubview(mealTypeImage) // v0
+        addSubview(mealNameLable) // v1
+        addSubview(servedWithMealNameLable) // v2
+        addSubview(priceBGView) // v3
+        addSubview(priceLable) // add with center X & Y constraints
+        addSubview(caloriesLable) // v5
+        addSubview(alergiesLable) // v4
+        addSubview(dividerLine) // v7
         
         // Center the cost lable using autoLayout constraint
         priceLable.centerXAnchor.constraint(equalTo: priceBGView.centerXAnchor).isActive = true
@@ -155,13 +165,17 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-8-[v0(50)]-16-[v2]-8-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": mealTypeImage,"v2": servedWithMealNameLable]))
         
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-8-[v0(50)]-16-[v2]-8-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": mealTypeImage,"v2": servedWithMealNameLable]))
-        
         // Cost BG view
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-8-[v0(50)]-16-[v3(73)]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": mealTypeImage,"v3": priceBGView]))
         
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[v2]-2-[v3(30)]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v2": servedWithMealNameLable,"v3": priceBGView]))
         // Cost BG view END
+        
+        // Calories Lable
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[v3]-12-[v4]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v3": priceBGView,"v4": caloriesLable]))
+        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[v2]-2-[v4(30)]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v2": servedWithMealNameLable, "v4": caloriesLable]))
+        // Calories Label view END
         
         // AlergiesLable
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-8-[v4]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v4": alergiesLable]))
@@ -179,7 +193,7 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         // Divider Line
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-24-[v7]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v7": dividerLine]))
         
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[v6(50)]-2-[v7(0.5)]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v6": restaurantCollectionView, "v7": dividerLine]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[v6(50)]-8-[v7(0.5)]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v6": restaurantCollectionView, "v7": dividerLine]))
         
     }
     
@@ -197,16 +211,13 @@ extension CategoryCell {
         dump(alergiesIcsonArrayKeys[indexPath.item])
         print("-----------------------------")
         
-        ////        print("Keys: ", alergiesIcsonArrayKeys)
         let iconKey: String = alergiesIcsonArrayKeys[indexPath.item]
-        //        print("iconKey: ", iconKey,"\n")
         if let icon_URL: String = alergiesIcsonArray[iconKey] {
             print("icon_URL: \(icon_URL)")
             let urlImage = URL(string: icon_URL)
-            print("urlImage: \(urlImage)")
-            cell.alergiesImageView.kf.setImage(with: urlImage)            
+            cell.alergiesImageView.kf.setImage(with: urlImage)
         }
-         return cell
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

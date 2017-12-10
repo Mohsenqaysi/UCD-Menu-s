@@ -57,7 +57,9 @@ extension CollectionViewController {
             cell.servedWithMealNameLable.text = passedArray.first?.menu[indexPath.item].servedwith
             let price = String(format: "€%.2f", (passedArray.first?.menu[indexPath.item].cost)!)
             cell.priceLable.text = price
-            cell.Json_URL =  "http://www.mocky.io/v2/5a2afeba2d0000202d91b290"
+            let calories = String(format: "Calories: %d Per Serving 123456789" , (passedArray.first?.menu[indexPath.item].calories)!)
+            print("calories: ", calories)
+            cell.caloriesLable.text = calories
             cell.alergiesIcsonArrayKeys = (passedArray.first?.menu[indexPath.item].alergies)!
             
             return cell
@@ -68,7 +70,7 @@ extension CollectionViewController {
         if indexPath.item == 0 {
             return CGSize(width: view.frame.width, height: 160)
         } else {
-            return CGSize(width: view.frame.width, height: 200)
+            return CGSize(width: view.frame.width, height: 230)
         }
     }
 }
