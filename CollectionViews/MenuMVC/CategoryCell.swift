@@ -57,6 +57,8 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.showsVerticalScrollIndicator = false
+        view.showsHorizontalScrollIndicator = false
         view.translatesAutoresizingMaskIntoConstraints = false // Very important
         view.backgroundColor = .clear
         return view
@@ -138,7 +140,6 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
     
     func setupViews() {
         backgroundColor = .white
-        
         //MARK: add views the the root view:
         addSubview(restaurantCollectionView) // v6
         addSubview(mealTypeImage) // v0

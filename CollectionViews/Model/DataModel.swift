@@ -8,7 +8,7 @@
 
 import Foundation
 
-let mocky_URL = "http://www.mocky.io/v2/5a2afeba2d0000202d91b290"
+var mocky_URL = "http://www.mocky.io/v2/5a2db79d320000a4346fa8bd"
 
 // MARK: Cells Idenifiers
 struct Idenifiers {

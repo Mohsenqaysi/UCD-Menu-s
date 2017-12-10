@@ -3,8 +3,7 @@
 //  CollectionViews
 //
 //  Created by Mohsen Qaysi on 12/8/17.
-//  Copyright © 2017 Mohsen Qaysi. All rights reserved.
-//
+//  Copyright © 2017 Mohsen Qaysi. All rights reservedvar/
 
 import UIKit
 import Kingfisher
@@ -18,11 +17,11 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: reloadIcon, style: UIBarButtonItemStyle.plain, target: self, action: #selector(FromTheServer))
-
+        
         collectionView?.backgroundColor = .white
         navigationController?.navigationBar.prefersLargeTitles = true
-
-
+        
+        
         collectionView?.contentInset = UIEdgeInsetsMake(16, 0, 0, 0)
         
         setDate()
@@ -32,7 +31,7 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
     }
     
     @objc func FromTheServer() {
-         loadDataFromTheServer()
+        loadDataFromTheServer()
     }
     
     func loadDataFromTheServer() {
@@ -42,14 +41,11 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
         guard let url = URL(string: mocky_URL) else {return}
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
-            
             // check for errors
             if error != nil {
-                print(String(describing: error?.localizedDescription))
+                debugPrint(String(describing: error?.localizedDescription))
+                self.showAlert()
             } else {
-                // check the response
-                //                print("response: \(String(describing: response?.url))")
-                // Use the data
                 guard let data = data else { return }
                 do {
                     let broker = try JSONDecoder().decode(Broker.self, from: data)
@@ -58,16 +54,46 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
                         //                        dump(service)
                         self.newArry.append(service)
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+                    DispatchQueue.main.async {
                         self.collectionView?.reloadData()
                         self.loader.stopAnimating()
-                    })
+                    }
                     
                 } catch let jsonErr {
-                    print("Error serializing json:", jsonErr)
+                    debugPrint("Error serializing json:", jsonErr)
+                    self.showAlert()
                 }
             }
             }.resume() // to fire it off
+    }
+    
+    func showAlert(){
+        let alertController = UIAlertController(title: "URl Error", message: "The Server JSON URL is not Working Please Enter The New One", preferredStyle: .alert)
+        
+        alertController.addAction(UIAlertAction(title: "Save", style: .default, handler: {
+            alert -> Void in
+            let input: UITextField = (alertController.textFields?[0])!
+            
+            if (input.text?.hasPrefix("http"))! {
+                print("textField %s", input)
+                mocky_URL = input.text!
+                self.loadDataFromTheServer()
+            } else{
+                print("I am here 1")
+                mocky_URL = ""
+                self.showAlert()
+            }
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {
+            alert -> Void in
+            self.loader.stopAnimating()
+        }))
+        
+        alertController.addTextField(configurationHandler: {(textField : UITextField!) -> Void in
+            textField.placeholder = "Enter The URL..."
+        })
+        self.present(alertController, animated: true, completion: nil)
     }
     
     // MARK: Programmtically created Views
@@ -138,7 +164,7 @@ extension MainCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! ResturantLogoCell
-
+        
         // MARK: the data loding is very fast ... add delay to make the UI look nicer
         UIView.animate(withDuration: 0.5, animations: {
             self.loader.stopAnimating()
@@ -149,7 +175,7 @@ extension MainCollectionViewController {
         print(urlImage)
         cell.logoImageView.kf.setImage(with: urlImage)
         cell.restaurantNameLable.text = newArry[indexPath.item].title
-       
+        
         return cell
     }
     
@@ -166,8 +192,8 @@ extension MainCollectionViewController {
     }
     
     func showControllerForMenu(_ index: IndexPath) {
-         let layout = UICollectionViewFlowLayout()
-
+        let layout = UICollectionViewFlowLayout()
+        
         let menuViewController = CollectionViewController(collectionViewLayout: layout)
         menuViewController.passedArray = [newArry[index.item]]
         navigationController?.pushViewController(menuViewController, animated: true)
