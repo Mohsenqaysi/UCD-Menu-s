@@ -45,7 +45,6 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
                     DispatchQueue.main.async {
                         self.restaurantCollectionView.reloadData()
                     }
-                    //
                 } catch let jsonErr {
                     print("Error serializing json:", jsonErr)
                 }
@@ -63,7 +62,8 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         view.backgroundColor = .clear
         return view
     }()
-    
+//    collectionView?.contentInset = UIEdgeInsetsMake(16, 0, 0, 0)
+
     let mealTypeImage: UIImageView = {
         let image = UIImageView(frame: .zero)
         image.image = UIImage(named: "Group")
@@ -189,12 +189,12 @@ class CategoryCell: UICollectionViewCell, UICollectionViewDataSource, UICollecti
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-8-[v1]-2-[v2]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v1": mealNameLable,"v2": servedWithMealNameLable]))
         
         // MARK: add  constraints to  the alergies collection views:
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-48-[v6]-8-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v6": restaurantCollectionView]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-44-[v6]-8-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v6": restaurantCollectionView]))
         
         // Divider Line
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-24-[v7]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v7": dividerLine]))
         
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[v6(50)]-8-[v7(0.5)]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v6": restaurantCollectionView, "v7": dividerLine]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[v6(50)]-8-[v7(0.5)]-4-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["v6": restaurantCollectionView, "v7": dividerLine]))
         
     }
     

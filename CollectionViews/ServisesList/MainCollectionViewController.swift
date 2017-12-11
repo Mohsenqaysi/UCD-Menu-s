@@ -20,8 +20,6 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
         
         collectionView?.backgroundColor = .white
         navigationController?.navigationBar.prefersLargeTitles = true
-        
-        
         collectionView?.contentInset = UIEdgeInsetsMake(16, 0, 0, 0)
         
         setDate()
@@ -54,11 +52,10 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
                         //                        dump(service)
                         self.newArry.append(service)
                     }
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                         self.collectionView?.reloadData()
                         self.loader.stopAnimating()
-                    }
-                    
+                    })
                 } catch let jsonErr {
                     debugPrint("Error serializing json:", jsonErr)
                     self.showAlert()
