@@ -49,7 +49,7 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
                     let broker = try JSONDecoder().decode(Broker.self, from: data)
                     
                     for service in broker.services {
-                        //                        dump(service)
+                        dump(service)
                         self.newArry.append(service)
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
@@ -65,7 +65,7 @@ class MainCollectionViewController: UICollectionViewController, UICollectionView
     }
     
     func showAlert(){
-        let alertController = UIAlertController(title: "URl Error", message: "The Server JSON URL is not Working Please Enter The New One", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "URl Error", message: "The Server JSON URL is not Working Please Enter The New One\n and make sure the link start with http://", preferredStyle: .alert)
         
         alertController.addAction(UIAlertAction(title: "Save", style: .default, handler: {
             alert -> Void in
